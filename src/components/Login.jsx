@@ -1,8 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { login } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isSuccess || user) {
+      toast.success("Succesful sign in", { theme: "dark" });
+      navigate("/");
+    }
+  }, [user, dispatch]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name || !password) {
+      toast.error("All Details needed");
+      return;
+    }
+
+    try {
+      const payload = { name, password };
+      dispatch(login(payload));
+    } catch (error) {
+      toast.error("Unable to sign you in");
+    }
+  };
   return (
     <div className="">
       <div className="bg-zinc-100  mb-[1em] p-[1.1em] rounded-md text-center">
@@ -13,12 +49,15 @@ const Login = () => {
           Pexel - <span className="text-emerald-700">Share</span>
         </h1>
       </div>
-      <form className="flex flex-col gap-[1em] ">
+      <form className="flex flex-col gap-[1em] " onChange={handleSubmit}>
         <input
           className="w-full p-[10px] bg-transparent outline-none text-lg rounded-md"
           style={{ border: "1px solid gray" }}
           type="text"
           placeholder="Enter your username"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
 
         <div className="flex gap-5 items-center">
@@ -27,6 +66,9 @@ const Login = () => {
             style={{ border: "1px solid gray" }}
             type={show ? "text" : "password"}
             placeholder="Enter your Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {show ? (
             <AiFillEyeInvisible
@@ -44,6 +86,7 @@ const Login = () => {
         <button
           className="w-full p-[10px] bg-emerald-700 outline-none text-lg rounded-md"
           //   style={{ border: "1px solid gray" }}
+          onClick={handleSubmit}
         >
           Continue
         </button>

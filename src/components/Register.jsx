@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { register } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
   const [show, setShow] = useState(false);
@@ -9,8 +13,41 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isSuccess || user) {
+      toast.success("Succesful registration", { theme: "dark" });
+      navigate("/");
+    }
+  }, [user, dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // check all values
+    if (!name || !email || !profile || !password || !cpassword) {
+      toast("All details needed", { theme: "dark" });
+      return;
+    }
+
+    // check password and cpassword
+    if (password !== cpassword) {
+      toast("Password Mismatch", { theme: "dark" });
+      return;
+    }
+
+    try {
+      const payload = { name, email, profile, password };
+      dispatch(register(payload));
+    } catch (error) {
+      toast.error("Unable to register you");
+    }
   };
 
   return (

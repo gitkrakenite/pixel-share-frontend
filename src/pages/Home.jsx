@@ -5,6 +5,7 @@ import axios from "axios";
 import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { categories } from "../categories";
+import { useDispatch, useSelector } from "react-redux";
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0)
@@ -23,6 +24,10 @@ const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setsearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState(null);
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -101,15 +106,24 @@ const Home = () => {
           />
         </div>
         <div className="flex-[0.2] flex gap-[20px] items-center justify-end ">
-          <Link to="/profile/34">
-            <div className="cursor-pointer">
-              <img
-                src="https://images.pexels.com/photos/14446269/pexels-photo-14446269.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-                alt=""
-                className="w-[55px] h-[55px] rounded-full object-cover"
-              />
-            </div>
-          </Link>
+          {user ? (
+            <Link to="/profile/34">
+              <div className="cursor-pointer">
+                <img
+                  src={user?.profile}
+                  alt=""
+                  className="w-[55px] h-[55px] rounded-full object-cover"
+                />
+              </div>
+            </Link>
+          ) : (
+            <Link to="/auth">
+              <div className="cursor-pointer">
+                <h1>LOGIN</h1>
+              </div>
+            </Link>
+          )}
+
           <Link to="/create-post">
             <div
               className="text-2xl bg-zinc-900 text-white p-[13px] rounded-md cursor-pointer"
@@ -122,8 +136,8 @@ const Home = () => {
       </div>
       {/* filters */}
       <div>
-        <h1 className="mb-[20px] mt-[20px] text-2xl underline">
-          Apply filters
+        <h1 className="mb-[20px] mt-[20px] text-2xl">
+          Hello {user?.name} Apply filters
         </h1>
         <div className="flex gap-[20px] overflow-x-scroll prompt">
           {categories.map((category) => (
