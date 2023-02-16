@@ -81,7 +81,7 @@ const Home = () => {
 
   return (
     <section className="w-[90%] mx-auto">
-      <div className="flex justify-between items-center mt-[20px]">
+      <div className=" block md:flex  justify-between items-center mt-[20px]">
         <div
           className="flex-[0.2] cursor-pointer"
           onClick={() => setSearchText("")}
@@ -90,7 +90,7 @@ const Home = () => {
             Pexel - <span className="text-emerald-700">Share</span>
           </h1>
         </div>
-        <div className=" flex-[0.6]">
+        <div className=" flex-[1] md:flex-[0.6]">
           {/* <FormField
             labelName="Search posts"
             type="text"
@@ -102,12 +102,12 @@ const Home = () => {
           <input
             type="text"
             placeholder="Search something"
-            className="w-full p-[8px] outline-none"
+            className="w-full p-[8px] mt-[10px] mb-[10px] md:outline-none md:mt-[1px] md:mb-[1px] "
             value={searchText}
             onChange={handleSearchChange}
           />
         </div>
-        <div className="flex-[0.2] flex gap-[20px] items-center justify-end ">
+        <div className=" flex:[1] md:flex-[0.2] flex gap-[20px] items-center justify-between md:justify-end ">
           {user ? (
             <Link to="/profile">
               <div className="cursor-pointer">
@@ -138,7 +138,7 @@ const Home = () => {
       </div>
       {/* filters */}
       <div>
-        <h1 className="mb-[20px] mt-[20px] text-2xl">
+        <h1 className="mb-[20px] mt-[20px] text-xl md:text-2xl">
           Hello {user?.name} <span className="underline">Double click</span>{" "}
           each filter to Apply filters
         </h1>

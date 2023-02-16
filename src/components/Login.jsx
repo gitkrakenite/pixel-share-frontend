@@ -25,6 +25,14 @@ const Login = () => {
     dispatch(reset());
   }, [user, dispatch]);
 
+  useEffect(() => {
+    if (isError) {
+      toast.error("Invalid credentials", { theme: "dark" });
+    }
+
+    dispatch(reset());
+  }, [user, isError, dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

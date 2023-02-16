@@ -45,7 +45,7 @@ const Profile = () => {
             "https://images.pexels.com/photos/3244513/pexels-photo-3244513.jpeg?auto=compress&cs=tinysrgb&w=1600"
           }
           alt=""
-          className="w-full h-[50vh] object-cover "
+          className="w-full h-[40vh] md:h-[50vh] object-cover "
         />
       </div>
       <div>
@@ -55,11 +55,11 @@ const Profile = () => {
             "https://images.pexels.com/photos/3244513/pexels-photo-3244513.jpeg?auto=compress&cs=tinysrgb&w=1600"
           }
           alt=""
-          className="w-[100px] h-[100px] object-cover rounded-full absolute top-[48%] left-[48%] z-50"
+          className="w-[100px] h-[100px] object-cover rounded-full absolute md:top-[45%] md:left-[48%] z-50 top-[34%] left-[38%]"
         />
       </div>
       {/* user details */}
-      <div className="relative flex mt-[6em] pl-[2em] pr-[2em] gap-[1em] ">
+      <div className="relative block md:flex mt-[6em] pl-[2em] pr-[2em] gap-[1em] ">
         <div className="flex-[0.5]">
           <h1 className="mb-[1em] font-bold text-white bg-emerald-700 p-[10px] rounded-md">
             Here are your current details
@@ -90,13 +90,13 @@ const Profile = () => {
             Logout of your account
           </h1>
         </div>
-        <div className="flex-[0.5]">
+        <div className="flex-[0.5] mt-[2em] md:[1px]">
           <h1 className="mb-[1em] font-bold text-white bg-emerald-700 p-[10px] rounded-md">
             Update your Details
           </h1>
           <form onSubmit={handleSubmit}>
             {/* first */}
-            <div className="flex gap-[15px] justify-between">
+            <div className=" block md:flex gap-[15px] justify-between">
               <div className=" flex-[0.5] flex flex-col mb-[20px]">
                 <label htmlFor="name">Update username</label>
                 <input
@@ -135,7 +135,7 @@ const Profile = () => {
             </div>
 
             {/* second */}
-            <div className="flex gap-[15px] justify-between">
+            <div className=" block md:flex gap-[15px] justify-between">
               <div className="flex-[0.5] flex flex-col mb-[20px]">
                 <label htmlFor="profile">Update Profile</label>
                 <input
@@ -184,7 +184,7 @@ const Profile = () => {
       </div>
       {/* show your pictures */}
       <div className="mt-[4em] pl-[2em] pr-[2em] gap-[1em]">
-        <h1>All your pictures</h1>
+        {/* <h1>All your pictures</h1> */}
         {/* all your images */}
       </div>
     </div>

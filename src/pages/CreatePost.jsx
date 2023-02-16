@@ -85,9 +85,9 @@ const CreatePost = () => {
           <label htmlFor="description">Enter Short Description</label>
           <input
             type="text"
+            className=" w-[100%] md:w-[60%]"
             style={{
               border: "1px solid gray",
-              width: "60%",
               marginTop: "15px",
               padding: "8px",
               borderRadius: "5px",
@@ -105,9 +105,10 @@ const CreatePost = () => {
           <label htmlFor="image">Enter image url</label>
           <input
             type="text"
+            className=" w-[100%] md:w-[60%]"
             style={{
               border: "1px solid gray",
-              width: "60%",
+
               marginTop: "15px",
               padding: "8px",
               borderRadius: "5px",
@@ -126,9 +127,10 @@ const CreatePost = () => {
 
           <select
             id="category"
+            className=" w-[100%] md:w-[60%]"
             style={{
               border: "1px solid gray",
-              width: "60%",
+
               marginTop: "15px",
               padding: "8px",
               borderRadius: "5px",
@@ -172,7 +174,7 @@ const CreatePost = () => {
           ** NOTE that everyone will be able to see your image **
         </p>
         <button
-          className="bg-emerald-600 p-[20px] cursor-pointer rounded-md text-white"
+          className="bg-emerald-600 p-[20px] cursor-pointer rounded-md text-white mb-[1em]"
           type="submit"
           onClick={handleSubmit}
         >
