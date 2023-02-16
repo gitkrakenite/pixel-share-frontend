@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AiFillEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { toast } from "react-toastify";
-import { register } from "../features/auth/authSlice";
+import { register, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,6 +25,7 @@ const Register = () => {
       toast.success("Succesful registration", { theme: "dark" });
       navigate("/");
     }
+    dispatch(reset());
   }, [user, dispatch]);
 
   const handleSubmit = (e) => {

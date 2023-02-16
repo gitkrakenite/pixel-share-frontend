@@ -29,10 +29,22 @@ const login = async (userData) => {
   return response.data;
 };
 
+// delete my report
+const updateUser = async (user, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put("/user/update" + user, config);
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
+  updateUser,
 };
 
 export default authService;

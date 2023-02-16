@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AiFillEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { toast } from "react-toastify";
-import { login } from "../features/auth/authSlice";
+import { login, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,6 +22,7 @@ const Login = () => {
       toast.success("Succesful sign in", { theme: "dark" });
       navigate("/");
     }
+    dispatch(reset());
   }, [user, dispatch]);
 
   const handleSubmit = (e) => {
@@ -49,7 +50,7 @@ const Login = () => {
           Pexel - <span className="text-emerald-700">Share</span>
         </h1>
       </div>
-      <form className="flex flex-col gap-[1em] " onChange={handleSubmit}>
+      <form className="flex flex-col gap-[1em] " onSubmit={handleSubmit}>
         <input
           className="w-full p-[10px] bg-transparent outline-none text-lg rounded-md"
           style={{ border: "1px solid gray" }}

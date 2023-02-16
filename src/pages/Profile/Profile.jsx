@@ -1,24 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { reset } from "../../features/auth/authSlice";
+import { toast } from "react-toastify";
+import { logout } from "../../features/auth/authSlice";
 
 const Profile = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [profile, setProfile] = useState("");
+  const [cover, setCover] = useState("");
+
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Updated succesfully", { theme: "dark" });
+      // navigate("/");
+    }
+    dispatch(reset());
+  }, [user, dispatch]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.info("Being developed", { theme: "dark" });
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/auth");
+  };
   return (
     <div className="">
       <div>
         <img
-          src="https://images.pexels.com/photos/3244513/pexels-photo-3244513.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          src={
+            cover ||
+            "https://images.pexels.com/photos/3244513/pexels-photo-3244513.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          }
           alt=""
           className="w-full h-[50vh] object-cover "
         />
       </div>
       <div>
         <img
-          src={user?.profile}
+          src={
+            user?.profile ||
+            "https://images.pexels.com/photos/3244513/pexels-photo-3244513.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          }
           alt=""
           className="w-[100px] h-[100px] object-cover rounded-full absolute top-[48%] left-[48%] z-50"
         />
@@ -30,15 +65,15 @@ const Profile = () => {
             Here are your current details
           </h1>
           <h1>
-            Current username is: <span className="font-bold">{user.name}</span>{" "}
+            Current username is: <span className="font-bold">{user?.name}</span>{" "}
           </h1>
           <h1>
-            Current email is: <span className="font-bold">{user.email}</span>{" "}
+            Current email is: <span className="font-bold">{user?.email}</span>{" "}
           </h1>
           <h1>
             Your account was created{" "}
             <span className="font-bold">
-              {moment(user.createdAt).fromNow()}
+              {moment(user?.createdAt).fromNow()}
             </span>{" "}
           </h1>
 
@@ -47,12 +82,19 @@ const Profile = () => {
               Click to see other people's posts
             </h1>
           </Link>
+
+          <h1
+            className="mt-[1em] text-white bg-emerald-800 cursor-pointer p-[10px] text-center rounded-lg"
+            onClick={handleLogout}
+          >
+            Logout of your account
+          </h1>
         </div>
         <div className="flex-[0.5]">
           <h1 className="mb-[1em] font-bold text-white bg-emerald-700 p-[10px] rounded-md">
             Update your Details
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* first */}
             <div className="flex gap-[15px] justify-between">
               <div className=" flex-[0.5] flex flex-col mb-[20px]">
@@ -69,8 +111,8 @@ const Profile = () => {
                   maxLength={20}
                   id="name"
                   placeholder="i.e pics_art"
-                  // value={name}
-                  // onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="flex-[0.5] flex flex-col mb-[20px]">
@@ -86,8 +128,8 @@ const Profile = () => {
                   }}
                   id="email"
                   placeholder="Enter new email"
-                  // value={email}
-                  // onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -107,8 +149,8 @@ const Profile = () => {
                   }}
                   id="profile"
                   placeholder="Enter new profile url"
-                  // value={profile}
-                  // onChange={(e) => setProfile(e.target.value)}
+                  value={profile}
+                  onChange={(e) => setProfile(e.target.value)}
                 />
               </div>
               <div className="flex-[0.5] flex flex-col mb-[20px]">
@@ -124,8 +166,8 @@ const Profile = () => {
                   }}
                   id="cover"
                   placeholder="Enter new cover url"
-                  // value={cover}
-                  // onChange={(e) => setCover(e.target.value)}
+                  value={cover}
+                  onChange={(e) => setCover(e.target.value)}
                 />
               </div>
             </div>
@@ -133,7 +175,7 @@ const Profile = () => {
             <button
               className="bg-emerald-600 p-[20px] cursor-pointer rounded-md text-white"
               type="submit"
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
             >
               Update your details
             </button>

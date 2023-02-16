@@ -6,6 +6,7 @@ import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { categories } from "../categories";
 import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../features/post/postSlice";
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0)
@@ -20,62 +21,63 @@ const RenderCards = ({ data, title }) => {
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [allPosts, setAllPosts] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setsearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState(null);
+
+  const dispatch = useDispatch();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
 
-  const fetchPosts = async () => {
-    setLoading(true);
-
-    try {
-      const response = await fetch(
-        "https://v-ai-image-generator-backend-lu7bl08sy-gitkrakenite.vercel.app/api/v1/post",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.ok) {
-        const result = await response.json();
-        setAllPosts(result.data.reverse());
-        // console.log(allPosts);
-      }
-    } catch (err) {
-      alert(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  const { posts } = useSelector((state) => state.posts);
 
   const handleSearchChange = async (e) => {
     clearTimeout(setsearchTimeout);
 
     setSearchText(e.target.value);
 
+    // console.log(searchText);
+
     setsearchTimeout(
       setTimeout(() => {
-        const searchResults = allPosts.filter(
+        const searchResults = posts?.filter(
           (item) =>
-            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+            item.category.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchText.toLowerCase())
         );
 
         setSearchedResults(searchResults);
       }, 500)
     );
   };
+
+  const handleFilterChange = async (filter) => {
+    clearTimeout(setsearchTimeout);
+
+    // setSearchText("");
+    setSearchText(filter);
+
+    // console.log(searchText);
+
+    setsearchTimeout(
+      setTimeout(() => {
+        const searchResults = posts?.filter(
+          (item) =>
+            item.category.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchText.toLowerCase())
+        );
+
+        setSearchedResults(searchResults);
+      }, 500)
+    );
+  };
+
+  useEffect(() => {
+    // fetchPosts();
+    dispatch(getPosts());
+  }, [dispatch, posts]);
 
   return (
     <section className="w-[90%] mx-auto">
@@ -107,7 +109,7 @@ const Home = () => {
         </div>
         <div className="flex-[0.2] flex gap-[20px] items-center justify-end ">
           {user ? (
-            <Link to="/profile/34">
+            <Link to="/profile">
               <div className="cursor-pointer">
                 <img
                   src={user?.profile}
@@ -137,7 +139,7 @@ const Home = () => {
       {/* filters */}
       <div>
         <h1 className="mb-[20px] mt-[20px] text-2xl">
-          Hello {user?.name} Apply filters
+          Hello {user?.name} Double click each filter to Apply filters
         </h1>
         <div className="flex gap-[20px] overflow-x-scroll prompt">
           {categories.map((category) => (
@@ -145,7 +147,7 @@ const Home = () => {
               key={category.name}
               className="flex w-[150px] relative items-center gap-[20px] p-[10px] cursor-pointer rounded-md mb-[10px]"
               style={{ border: "1px solid gray" }}
-              onClick={() => setSearchText(category.name)}
+              onClick={() => handleFilterChange(category.name)}
             >
               <div className="w-[200px]">
                 <img
@@ -155,7 +157,7 @@ const Home = () => {
                 />
               </div>
               <div>
-                <p>{category.name}</p>
+                <p className="homeSelect">{category.name}</p>
               </div>
             </div>
           ))}
@@ -171,7 +173,7 @@ const Home = () => {
           <>
             {searchText && (
               <h2 className="font-medium text-[#666e75] text-xl mb-3">
-                Showing Resuls for{" "}
+                showing Resuls for{" "}
                 <span className="text-[#222328]">{searchText}</span>:
               </h2>
             )}
@@ -182,7 +184,7 @@ const Home = () => {
                   title="No Search Results Found"
                 />
               ) : (
-                <RenderCards data={allPosts} title="No Posts Yet" />
+                <RenderCards data={posts ? posts : null} title="No Posts Yet" />
               )}
             </div>
             {/* {console.log(allPosts)} */}

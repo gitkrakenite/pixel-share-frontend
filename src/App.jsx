@@ -10,16 +10,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  useEffect(() => {
-    toast("yooh", { theme: "dark" });
-  }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/create-post" element={<CreatePost />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/*" element={<Lost />} />
       </Routes>
       <ToastContainer />
