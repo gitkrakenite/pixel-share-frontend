@@ -3,7 +3,7 @@ export const categories = [
     id: 1,
     name: "nature",
     image:
-      "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 2,
@@ -15,79 +15,79 @@ export const categories = [
     id: 3,
     name: "creative",
     image:
-      "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/3622517/pexels-photo-3622517.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 4,
     name: "beautiful",
     image:
-      "https://images.pexels.com/photos/1832959/pexels-photo-1832959.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 5,
     name: "celebration",
     image:
-      "https://images.pexels.com/photos/6347901/pexels-photo-6347901.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/769525/pexels-photo-769525.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 6,
     name: "art",
     image:
-      "https://images.pexels.com/photos/4432715/pexels-photo-4432715.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/3246665/pexels-photo-3246665.png?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 7,
     name: "movies",
     image:
-      "https://i.pinimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg",
+      "https://images.pexels.com/photos/33129/popcorn-movie-party-entertainment.jpg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 8,
     name: "technology",
     image:
-      "https://i.pinimg.com/750x/66/b1/29/66b1296d36598122e6a4c5452b5a7149.jpg",
+      "https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 9,
     name: "fitness",
     image:
-      "https://i.pinimg.com/236x/72/8c/b4/728cb43f48ca762a75da645c121e5c57.jpg",
+      "https://images.pexels.com/photos/1153369/pexels-photo-1153369.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 10,
     name: "sports",
     image:
-      "https://i.pinimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg",
+      "https://images.pexels.com/photos/1618269/pexels-photo-1618269.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 11,
     name: "cars",
     image:
-      "https://i.pinimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg",
+      "https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 12,
     name: "study",
     image:
-      "https://i.pinimg.com/736x/f4/e5/ba/f4e5ba22311039662dd253be33bf5f0e.jpg",
+      "https://images.pexels.com/photos/4769486/pexels-photo-4769486.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
 
   {
     id: 13,
-    name: "others",
+    name: "ladies",
     image:
-      "https://i.pinimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg",
+      "https://images.pexels.com/photos/1096668/pexels-photo-1096668.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  },
+  {
+    id: 14,
+    name: "men",
+    image:
+      "https://images.pexels.com/photos/718261/pexels-photo-718261.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
 
   {
     id: 15,
-    name: "ladies",
-    image:
-      "https://i.pinimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg",
-  },
-  {
-    id: 16,
-    name: "men",
+    name: "others",
     image:
       "https://i.pinimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg",
   },

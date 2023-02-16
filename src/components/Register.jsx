@@ -22,7 +22,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess || user) {
-      toast.success("Succesful registration", { theme: "dark" });
+      // toast.success("Succesful registration", { theme: "dark" });
       navigate("/");
     }
     dispatch(reset());

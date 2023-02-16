@@ -84,7 +84,7 @@ const Profile = () => {
           </Link>
 
           <h1
-            className="mt-[1em] text-white bg-emerald-800 cursor-pointer p-[10px] text-center rounded-lg"
+            className="mt-[1em] text-white bg-red-800 cursor-pointer p-[10px] text-center rounded-lg"
             onClick={handleLogout}
           >
             Logout of your account

@@ -139,7 +139,8 @@ const Home = () => {
       {/* filters */}
       <div>
         <h1 className="mb-[20px] mt-[20px] text-2xl">
-          Hello {user?.name} Double click each filter to Apply filters
+          Hello {user?.name} <span className="underline">Double click</span>{" "}
+          each filter to Apply filters
         </h1>
         <div className="flex gap-[20px] overflow-x-scroll prompt">
           {categories.map((category) => (
