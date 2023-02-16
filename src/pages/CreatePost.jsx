@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -42,6 +42,15 @@ const CreatePost = () => {
       toast.error("Failed to create" + error, { theme: "dark" });
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      toast.error("Please login or register");
+      navigate("/auth");
+      return;
+    }
+  }, [user]);
+
   return (
     <div className="w-[90%] m-auto pt-[1em]">
       <Link to="/">

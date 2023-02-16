@@ -14,7 +14,10 @@ const RenderCards = ({ data, title }) => {
 
   return (
     <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">
-      No posts found
+      No posts found. Are you{" "}
+      <Link to="/auth">
+        <span className="underline">logged in?</span>
+      </Link>
     </h2>
   );
 };
@@ -27,11 +30,11 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
 
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
 
   const handleSearchChange = async (e) => {
     clearTimeout(setsearchTimeout);
@@ -77,7 +80,7 @@ const Home = () => {
   useEffect(() => {
     // fetchPosts();
     dispatch(getPosts());
-  }, [dispatch, posts]);
+  }, [dispatch]);
 
   return (
     <section className="w-[90%] mx-auto">
@@ -166,7 +169,7 @@ const Home = () => {
       </div>
       {/*  */}
       <div className="mt-10">
-        {loading ? (
+        {isLoading ? (
           <div className="flex justify-center items-center">
             <Loader />
           </div>
