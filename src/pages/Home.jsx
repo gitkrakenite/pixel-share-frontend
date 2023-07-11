@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Loader, Card, FormField } from "../components";
 import axios from "axios";
 import { MdOutlineAdd } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { categories } from "../categories";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../features/post/postSlice";
@@ -14,9 +14,9 @@ const RenderCards = ({ data, title }) => {
 
   return (
     <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">
-      No posts found. Are you{" "}
-      <Link to="/auth">
-        <span className="underline">logged in?</span>
+      No posts found.
+      <Link to="/create-post">
+        <span className="underline">Create One?</span>
       </Link>
     </h2>
   );
@@ -29,10 +29,17 @@ const Home = () => {
   const [searchedResults, setSearchedResults] = useState(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/auth");
+    }
+  }, []);
 
   const { posts, isLoading } = useSelector((state) => state.posts);
 
@@ -114,11 +121,7 @@ const Home = () => {
           {user ? (
             <Link to="/profile">
               <div className="cursor-pointer">
-                <img
-                  src={user?.profile}
-                  alt=""
-                  className="w-[55px] h-[55px] rounded-full object-cover"
-                />
+                <p>Hi {user?.name}</p>
               </div>
             </Link>
           ) : (

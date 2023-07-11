@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "./Spinner";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -92,13 +93,17 @@ const Login = () => {
           )}
         </div>
 
-        <button
-          className="w-full p-[10px] bg-emerald-700 outline-none text-lg rounded-md"
-          //   style={{ border: "1px solid gray" }}
-          onClick={handleSubmit}
-        >
-          Continue
-        </button>
+        {isLoading ? (
+          <Spinner message="Authenticating" />
+        ) : (
+          <button
+            className="w-full p-[10px] bg-emerald-700 outline-none text-lg rounded-md"
+            //   style={{ border: "1px solid gray" }}
+            onClick={handleSubmit}
+          >
+            Continue
+          </button>
+        )}
       </form>
     </div>
   );

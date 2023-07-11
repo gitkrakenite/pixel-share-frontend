@@ -6,6 +6,7 @@ import { preview } from "../assets";
 import { categories } from "../categories";
 import { createPost } from "../features/post/postSlice";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const CreatePost = () => {
   const [category, setCategory] = useState("");
@@ -50,6 +51,42 @@ const CreatePost = () => {
       return;
     }
   }, [user]);
+
+  // uploading mainPhoto
+  const [loadUpload, setLoadUpload] = useState(false);
+  const [imagePreview, setImagePreview] = useState("");
+
+  const postPhoto = async (pic) => {
+    setLoadUpload(true);
+    if (pic === null || undefined) {
+      toast.error("Please select main photo");
+      setLoading(false);
+      return;
+    }
+
+    setImagePreview(URL.createObjectURL(pic));
+
+    const data = new FormData();
+    data.append("file", pic);
+    data.append("upload_preset", "p2jnu3t2");
+    try {
+      setLoadUpload(true);
+      let res = await fetch(
+        "https://api.cloudinary.com/v1_1/ddqs3ukux/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const urlData = await res.json();
+      setLoadUpload(false);
+      setImage(urlData.url);
+      toast.success("Uploaded Photo");
+    } catch (error) {
+      setLoadUpload(false);
+      toast.error("Error uploading Photo");
+    }
+  };
 
   return (
     <div className="w-[90%] m-auto pt-[1em]">
@@ -110,26 +147,42 @@ const CreatePost = () => {
           />
         </div>
 
-        <div className="flex flex-col mb-[20px]">
-          <label htmlFor="image">Enter image url</label>
-          <input
-            type="text"
-            className=" w-[100%] md:w-[60%]"
-            style={{
-              border: "1px solid gray",
-
-              marginTop: "15px",
-              padding: "8px",
-              borderRadius: "5px",
-            }}
-            required
-            // maxLength={40}
-            id="image"
-            placeholder="Copy your image addess and paste here"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
+        {/*  */}
+        <div className="flex flex-col items-start gap-[20px] sm:gap-0 sm:flex-row sm:items-center mt-[20px] mb-[20px]  px-[5px] rounded-lg">
+          <div className="flex flex-col gap-2 mt-[20px]">
+            <label
+              htmlFor="mainPhoto"
+              className="flex items-center gap-[20px] flex-wrap"
+            >
+              <p>Please Select Photo</p>
+              <div className="flex flex-col items-center">
+                {loadUpload ? (
+                  <Spinner message="uploading ..." />
+                ) : (
+                  <img
+                    src={
+                      imagePreview
+                        ? imagePreview
+                        : "https://pixel-share-25.netlify.app/assets/preview-35b286f0.png"
+                    }
+                    alt=""
+                    className="w-[100px] h-[100px] object-cover"
+                  />
+                )}
+              </div>
+            </label>
+            <input
+              type="file"
+              placeholder="Add Image"
+              accept="image/*"
+              onChange={(e) => postPhoto(e.target.files[0])}
+              required
+              id="mainPhoto"
+              className="hidden"
+            />
+          </div>
         </div>
+        {/*  */}
 
         <div className="flex flex-col mb-[20px]">
           <label htmlFor="category">Enter Category</label>
@@ -152,23 +205,6 @@ const CreatePost = () => {
               <option key={item.id}>{item.name}</option>
             ))}
           </select>
-
-          {/* <input
-            type="text"
-            style={{
-              border: "1px solid gray",
-              width: "60%",
-              marginTop: "15px",
-              padding: "8px",
-              borderRadius: "5px",
-            }}
-            required
-            // maxLength={40}
-            id="category"
-            placeholder="Copy your image addess and paste here"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          /> */}
         </div>
 
         <div>
